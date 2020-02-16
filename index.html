@@ -4,22 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>RSS Practice</title>
-    <script src="client.js?id=23" defer></script>
+    <title>News Navigator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="client.js?id=12" defer></script>
+    <link rel="stylesheet" href="CSS/index.css">
 </head>
 <body>
     <div id="container">
-        <div class="searchContainer">
+        <div class="text-center">
             <div id="tittle">
-                <h1>RSS Practice</h1>
-                <h5>Thi is some excersise</h5>
+                <h1>NewsNavigator</h1>
+                <h5>Try it out!</h5>
             </div>
             <div id="searchBox">
                 <input type="text" placeholder="Insert a URL" id="searchInput">
                 <input type="button" value="Search" id="btn">
             </div>
-            <div id="rssContainer"></div>
+        </div>
+        <div id="rssContainer">
+            <div class="list-group list-group-root well">
+                <!--Lista ordenada por año-->
+                <a href="#order-year" class="list-group-item" data-toggle="collapse">
+                  <i class="glyphicon glyphicon-chevron-right"></i>Ordered By Year
+                </a>
+                <div class="list-group collapse" id="order-year"></div>
+                <!--Lista ordenada por mes-->
+                <a href="#order-month" class="list-group-item" data-toggle="collapse">
+                  <i class="glyphicon glyphicon-chevron-right"></i>Ordered By Month
+                </a>
+                <div class="list-group collapse" id="order-month"></div>
+                <!--Lista ordenada por dia-->
+                <a href="#order-day" class="list-group-item" data-toggle="collapse">
+                  <i class="glyphicon glyphicon-chevron-right"></i>Ordered By Day
+                </a>
+                <div class="list-group collapse" id="order-day"></div>
+                
+              </div>
         </div>
     </div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
