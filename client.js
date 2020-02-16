@@ -1,75 +1,110 @@
-const newsContainer = document.getElementById('rssContainer');
-const searchBTN = document.getElementById('btn');
-const textInput = document.getElementById('searchInput');
+getURL();//Obtiene las noticias una vez que se carga
 
-_getURL();
-
-searchBTN.onclick = function(){
-    let input = textInput.value;
-    if(input && validURL(input)){
-        getRSS(input,"search");
-    }
-}
-
-function _getURL(){
-    getRSS("none","retrieved");
-}
-
-
-
-function getRSS(url,action){
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.status == 200 && this.readyState == 4) {
-            let parsedResponse = JSON.parse(this.response);
-                setInformation(parsedResponse);
+$('#btn').click(
+    function(){
+        let input = $('#searchInput').val();
+        if(input){
+            getRSS("search",input);
         }
-        
     }
-    xmlhttp.open("get", "server.php?url="+url+"&action="+action, true);
-    xmlhttp.send();
+); 
+
+function getURL(){
+    getRSS("retrieved");
 }
 
-function setInformation(feed){
+
+
+function getRSS(action,url="none"){
+    $.ajax({
+        url: "server.php",
+        type: "get", //send it through get method
+        data: { 
+          url: url,
+          action: action
+        },
+        success: function(response) {
+            let parsedResponse = JSON.parse(response);
+            let responseArray = new Array();
+            parsedResponse.forEach(element => {
+                let elementParsed = JSON.parse(element);
+                responseArray.push(elementParsed);
+            });
+            sortByDate(responseArray);
+        },
+        error: function(xhr) {
+          console.log("Error");
+        }
+      });
+}
+
+function setInformation(feed,domList){
     
-    while(newsContainer.hasChildNodes()){//Borra la busqueda anterior
-        newsContainer.removeChild(newsContainer.firstChild);
-    }
-    
+    domList.empty();
     feed.forEach(element => {
-        let json  = JSON.parse(element);
-        console.log(json);
-        let elementContainer = document.createElement('div');
+        let feedContent = document.createElement('div');
+        feedContent.setAttribute('class','list-group-item');
 
-        let tittle = document.createElement('h1');
-        tittle.innerText = json.Tittle;
-        let url = document.createElement('a');
-        url.href = json.TittleURL;
-        url.innerHTML = "Link";
-        let author = document.createElement('h3');
-        author.innerText = json.Author;
-        let date = document.createElement('h5');
-        date.innerText = json.Date;
+        let tittle = document.createElement('a'); //Creacion del encabezado
+        tittle.innerHTML = element.Tittle + " Date: " + element.Date;
+        tittle.setAttribute('href',element.TittleURL); //Se adiciona el url de la noticia al encabezado
+        feedContent.appendChild(tittle);
+
+        let descriptionContent = document.createElement('div');
+        let author = document.createElement('p');
+        author.setAttribute('class','text-justify');
+        author.innerHTML = element.Author;
         let description = document.createElement('p');
-        description.innerHTML = json.Description;
+        description.setAttribute('class','text-justify');
+        description.innerHTML = element.Description;
 
-        elementContainer.appendChild(tittle);
-        elementContainer.appendChild(url);
-        elementContainer.appendChild(author);
-        elementContainer.appendChild(date);
-        elementContainer.appendChild(description);
+        descriptionContent.appendChild(author);
+        descriptionContent.appendChild(description);
+        feedContent.appendChild(descriptionContent);
 
-        newsContainer.appendChild(elementContainer);
+        domList.append(feedContent);
 
     });
 }
 
-function validURL(str) {
-    var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-    return !!pattern.test(str);
-  }
+
+function sortByDate(array){
+    var domList;
+    let orderedByYear = array.slice().sort(function(a,b){
+        let firstYear = new Date(a.Date).getFullYear();
+        let secondYear = new Date(b.Date).getFullYear();
+        return firstYear < secondYear ? -1 : firstYear > secondYear ? 1 : 0
+    });
+    domList = $('div#order-year');
+    setInformation(orderedByYear,domList);
+    
+    let orderedByMonth = array.slice().sort(function(a,b){
+        let firstMonth = new Date(a.Date).getMonth();
+        let secondMonth = new Date(b.Date).getMonth();
+        return firstMonth < secondMonth ? -1 : firstMonth > secondMonth ? 1 : 0
+    });
+    domList = $('div#order-month');
+    setInformation(orderedByMonth,domList);
+
+
+    let orderedByDay = array.slice().sort(function(a,b){
+        let firstDay = new Date(a.Date).getDate();
+        let secondDay = new Date(b.Date).getDate();
+        return firstDay < secondDay ? -1 : firstDay > secondDay ? 1 : 0
+    });
+    domList = $('div#order-day');
+    setInformation(orderedByDay,domList);
+
+}
+
+
+//Collapse items
+$(function() {
+        
+    $('.list-group-item').on('click', function() {
+      $('.glyphicon', this)
+        .toggleClass('glyphicon-chevron-right')
+        .toggleClass('glyphicon-chevron-down');
+    });
+  
+  });
