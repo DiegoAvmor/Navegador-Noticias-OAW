@@ -12,7 +12,6 @@ switch ($action) {
         break;
     
     case 'search':
-        # code...
         $url = $_GET['url'];
         setURL($url);
         _getRSSFrom($url,$feed);
@@ -35,8 +34,8 @@ function _getRSSFrom($url,$feed){
         $item = $feed->get_item($i);
         $tittle = $item->get_title();
         $link = $item->get_link();
-        $author = ($item->get_author()!==null)?$item->get_author()->get_name():"No Author found";
-        $date = $item->get_date('Y-m-d H:i:s');
+        $author = ($item->get_author()->get_name()!==null)?$item->get_author()->get_name():"No Author found";
+        $date = $item->get_date('Y-m-d');
         $descript = $item->get_description();
         $newsObject = new News($tittle,$link,$author,$date,$descript);
         array_push($list,$newsObject->_getJSON());
