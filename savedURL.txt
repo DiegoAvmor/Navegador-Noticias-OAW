@@ -1,1 +1,1 @@
-http://feeds.washingtonpost.com/rss/world
+https://www.reddit.com/r/worldnews/.rss
