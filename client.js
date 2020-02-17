@@ -6,7 +6,7 @@ getRSS("retrieved");//Obtiene las noticias una vez que se carga
 $('#btn').click(
     function(){
         let input = $('#searchInput');
-        if(input){
+        if(input.val()){
             getRSS("search",input.val());
             input.val('');//Se limpia la busqueda
         }
@@ -54,7 +54,6 @@ function setInformation(feed,domList,action){
     domList.empty();//Eliminacion de la busqueda anterior
     feed.forEach(element => {
         let dateSelection = dateToCompare(action,element.Date);
-        console.log(dateSelection);
 
         let feedContent = document.createElement('div');
         feedContent.setAttribute('class','list-group-item');
@@ -89,9 +88,10 @@ function setInformation(feed,domList,action){
 }
 
 /**
- * 
- * @param {String} listname 
- * @param {Object} list 
+ * Metodo encargado de la creacion de nuevas sublistas en la lista
+ * padre
+ * @param {String} listname Nombre de la nueva lista
+ * @param {Object} list Lista padre al cual se le añadira la nueva sublista
  */
 function createNewList(listname,list){
     let collapsableArrow = document.createElement('a');
@@ -116,6 +116,11 @@ function createNewList(listname,list){
 }
 
 
+/**
+ * Metodo que realiza el ordenamiento del arreglo de noticias en base
+ * a año,mes y dia
+ * @param {Array} array Arreglo de noticias con el cual se realizara el orden correspondiente
+ */
 function sortByDate(array){
     var domList;
     let orderedByYear = array.slice().sort(function(a,b){
@@ -158,7 +163,7 @@ $(function() {
 
 /**
  * Metodo que verifica si existe la estructura indicado en el DOM
- * @param {Object} item El objeto a verificar la existencia
+ * @param {String} item El nombre del objeto de tipo div a verificar
  */
 function checkIfExists(item){
     if($('div#' + item).length){
