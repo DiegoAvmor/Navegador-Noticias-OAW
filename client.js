@@ -58,10 +58,10 @@ function setInformation(feed,domList,action){
         let feedContent = document.createElement('div');
         feedContent.setAttribute('class','list-group-item');
 
-        let tittle = document.createElement('a'); //Creacion del encabezado
-        tittle.innerHTML = element.Tittle + " Date: " + element.Date;
-        tittle.setAttribute('href',element.TittleURL); //Se adiciona el url de la noticia al encabezado
-        feedContent.appendChild(tittle);
+        let title = document.createElement('a'); //Creacion del encabezado
+        title.innerHTML = element.Title + " Date: " + element.Date;
+        title.setAttribute('href',element.TitleURL); //Se adiciona el url de la noticia al encabezado
+        feedContent.appendChild(title);
 
         let descriptionContent = document.createElement('div');//Creacion del cuerpo de la noticia
         let author = document.createElement('p');
@@ -98,11 +98,11 @@ function createNewList(listname,list){
     collapsableArrow.setAttribute('href','#'+listname);
     collapsableArrow.setAttribute('data-toggle',"collapse");
     collapsableArrow.setAttribute('class','list-group-item');
-    let collapsableTittle = document.createElement('i');
-    collapsableTittle.setAttribute('class','glyphicon glyphicon-chevron-right');
+    let collapsableTitle = document.createElement('i');
+    collapsableTitle.setAttribute('class','glyphicon glyphicon-chevron-right');
 
     //Encabezado de la lista colapsable
-    collapsableArrow.append(collapsableTittle);
+    collapsableArrow.append(collapsableTitle);
     collapsableArrow.append(listname);
 
     list.append(collapsableArrow);

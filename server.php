@@ -32,12 +32,12 @@ function _getRSSFrom($url,$feed){
     for ($i = 0; $i < $itemQry; $i++) {
    
         $item = $feed->get_item($i);
-        $tittle = $item->get_title();
+        $title = $item->get_title();
         $link = $item->get_link();
         $author = ($item->get_author()->get_name()!==null)?$item->get_author()->get_name():"No Author found";
         $date = $item->get_date('Y-m-d');
         $descript = $item->get_description();
-        $newsObject = new News($tittle,$link,$author,$date,$descript);
+        $newsObject = new News($title,$link,$author,$date,$descript);
         array_push($list,$newsObject->_getJSON());
     }
     echo json_encode($list);
