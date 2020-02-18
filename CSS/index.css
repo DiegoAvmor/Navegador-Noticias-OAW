@@ -1,0 +1,65 @@
+ 
+#rssContainer{
+    margin-top: 20px;
+    padding: 0px;
+}
+
+input[type="text"]{
+    border: none;
+    border-bottom: gray .5px solid;
+}
+
+#btn {
+    background-color:#2dabf9;
+    border: none;
+	border-radius:20px;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Verdana;
+	font-size:12px;
+	padding:8px 42px;
+	text-decoration:none;
+}
+
+#btn:hover {
+	background-color:#0688fa;
+}
+#btn:active {
+	position:relative;
+	top:1px;
+}
+ 
+ /*Styles for lists*/
+ .just-padding {
+  padding: 15px;
+}
+
+.list-group.list-group-root {
+  padding: 0;
+  overflow: hidden;
+}
+
+.list-group.list-group-root .list-group {
+  margin-bottom: 0;
+}
+
+.list-group.list-group-root .list-group-item {
+  border-radius: 0;
+  border-width: 1px 0 0 0;
+}
+
+.list-group.list-group-root > .list-group-item:first-child {
+  border-top-width: 0;
+}
+
+.list-group.list-group-root > .list-group > .list-group-item {
+  padding-left: 30px;
+}
+
+.list-group.list-group-root > .list-group > .list-group > .list-group-item {
+  padding-left: 45px;
+}
+
+.list-group-item .glyphicon {
+  margin-right: 5px;
+}
