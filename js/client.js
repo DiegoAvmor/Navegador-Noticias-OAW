@@ -21,7 +21,7 @@ $('#btn').click(
  */
 function getRSS(action,url="none"){
     $.ajax({
-        url: "server.php",
+        url: "php/server.php",
         type: "get", //send it through get method
         data: { 
           url: url,

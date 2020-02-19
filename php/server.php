@@ -1,9 +1,10 @@
 <?php
-require_once 'simplepie-1.5\autoloader.php';
+require_once './simplepie-1.5/autoloader.php';
 include ('News.php');
 
 $action = $_GET['action'];
 $feed = new SimplePie();
+$feed->set_cache_location($_SERVER['DOCUMENT_ROOT'] . '/Navegador-Noticias-OAW/cache');
 
 switch ($action) {
     case 'retrieved':
@@ -24,9 +25,7 @@ function _getRSSFrom($url,$feed){
     $feed->set_feed_url($url);
     $feed->init();
 
-    
     $list = array();
-
     $itemQry = $feed->get_item_quantity();
     
     for ($i = 0; $i < $itemQry; $i++) {
@@ -44,14 +43,14 @@ function _getRSSFrom($url,$feed){
 }
 
 function getURL(){
-    if(file_exists("savedURL.txt")){
-        $fileContent  = file_get_contents("savedURL.txt");
+    if(file_exists("../resources/savedURL.txt")){
+        $fileContent  = file_get_contents("../resources/savedURL.txt");
         return $fileContent;
     }
 }
 
 function setURL($url){
-    file_put_contents("savedURL.txt",$url);
+    file_put_contents("../resources/savedURL.txt",$url);
 }
 
 
