@@ -123,30 +123,17 @@ function createNewList(listname,list){
  */
 function sortByDate(array){
     var domList;
-    let orderedByYear = array.slice().sort(function(a,b){
-        let firstYear = new Date(a.Date).getFullYear();
-        let secondYear = new Date(b.Date).getFullYear();
-        return firstYear < secondYear ? -1 : firstYear > secondYear ? 1 : 0
+    let orderedArray = array.slice().sort(function(a,b){
+        return new Date(a.Date) - new Date(b.Date);
     });
     domList = $('div#order-year');
-    setInformation(orderedByYear,domList,"Year");
+    setInformation(orderedArray,domList,"Year");
     
-    let orderedByMonth = array.slice().sort(function(a,b){
-        let firstMonth = new Date(a.Date).getMonth();
-        let secondMonth = new Date(b.Date).getMonth();
-        return firstMonth < secondMonth ? -1 : firstMonth > secondMonth ? 1 : 0
-    });
     domList = $('div#order-month');
-    setInformation(orderedByMonth,domList,"Month");
+    setInformation(orderedArray,domList,"Month");
 
-
-    let orderedByDay = array.slice().sort(function(a,b){
-        let firstDay = new Date(a.Date).getDate();
-        let secondDay = new Date(b.Date).getDate();
-        return firstDay < secondDay ? -1 : firstDay > secondDay ? 1 : 0
-    });
     domList = $('div#order-day');
-    setInformation(orderedByDay,domList,"Day");
+    setInformation(orderedArray,domList,"Day");
 
 }
 
