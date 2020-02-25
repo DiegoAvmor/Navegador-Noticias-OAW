@@ -4,7 +4,7 @@ include ('News.php');
 
 $action = $_GET['action'];
 $feed = new SimplePie();
-$feed->set_cache_location($_SERVER['DOCUMENT_ROOT'] . '/Navegador-Noticias-OAW/cache');
+$feed->set_cache_location('../cache');
 
 switch ($action) {
     case 'retrieved':
