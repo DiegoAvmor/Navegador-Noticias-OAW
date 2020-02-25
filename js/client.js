@@ -13,55 +13,54 @@ const MONTHS = [
   { name: "December" }
 ];
 
-getRSS("retrieved"); // Obtiene las noticias una vez que se carga
+$(document).ready(() => {
+  $.ajax({
+    type: "GET",
+    // Cargar noticias de URL de archivo de configuración.
+    url: "http://localhost/Navegador-Noticias-OAW/php/load_from_file.php"
+  })
+    .done(sortAndShow)
+    .fail((xhr, status, error) => console.log(error));
+});
 
 // Realiza la acción de buscar las noticias en el url introducido
 $("#btn").click(function() {
   let input = $("#searchInput");
   if (input.val()) {
-    getRSS("search", input.val());
+    $.ajax({
+      type: "GET",
+      // Cargar noticias de URL de archivo de configuración.
+      url: "http://localhost/Navegador-Noticias-OAW/php/load_provided_url.php",
+      // Provided RSS URL
+      data: {
+        url: $("#searchInput").val()
+      }
+    })
+      .done(sortAndShow)
+      .fail((xhr, status, error) => console.log(error));
+
     input.val(""); //Se limpia la búsqueda
   }
 });
 
+const sortAndShow = response => {
+  const parsedResponse = JSON.parse(response);
+  let responseArray = new Array();
+  parsedResponse.forEach(element => {
+    const elementParsed = JSON.parse(element);
+    responseArray.push(elementParsed);
+  });
+  sortByDate(responseArray);
+};
+
 //Realiza el colapso de las sublistas
 $(function() {
-    $('.list-group-item').on('click', function() {
-      $('.glyphicon', this)
-        .toggleClass('glyphicon-chevron-right')
-        .toggleClass('glyphicon-chevron-down');
-    });
-  
-});
-
-/**
- * Método que tiene como función la obtención de las noticias
- * a partir de la acción y url introducidos
- * @param {String} action La acción a realizar
- * @param {String} url la url con la que se efectuara la acción
- */
-function getRSS(action, url = "none") {
-  $.ajax({
-    url: "php/server.php",
-    type: "get", //send it through get method
-    data: {
-      url: url,
-      action: action
-    },
-    success: function(response) {
-      let parsedResponse = JSON.parse(response);
-      let responseArray = new Array();
-      parsedResponse.forEach(element => {
-        let elementParsed = JSON.parse(element);
-        responseArray.push(elementParsed);
-      });
-      sortByDate(responseArray);
-    },
-    error: function(xhr) {
-      console.log("Error");
-    }
+  $(".list-group-item").on("click", function() {
+    $(".glyphicon", this)
+      .toggleClass("glyphicon-chevron-right")
+      .toggleClass("glyphicon-chevron-down");
   });
-}
+});
 
 /**
  * Método cuya función es la visualización de las noticias obtenidas, creación
