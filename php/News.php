@@ -1,13 +1,12 @@
 <?php
-
-class News{
+class News {
     private $Title;
     private $TitleURL;
     private $Author;
     private $Date;
     private $Description;
 
-    function __construct($Title,$TitleURL,$Author,$Date,$Description) {
+    function __construct($Title, $TitleURL, $Author, $Date, $Description) {
         $this->Title = $Title;
         $this->TitleURL = $TitleURL;
         $this->Author = $Author;
@@ -15,7 +14,7 @@ class News{
         $this->Description = $Description;
     }
 
-    function _getJSON(){
+    function _getJSON() {
         return json_encode(
             array(
             'Title'=> $this->getTitle(),
@@ -27,28 +26,24 @@ class News{
         );
     }
 
-    public function getTitle(){
+    public function getTitle() {
         return $this->Title;
     }
 
-    public function getTitleURL(){
+    public function getTitleURL() {
         return $this->TitleURL;
     }
 
-    public function getAuthor(){
+    public function getAuthor() {
         return $this->Author;
     }
 
-    public function getDate(){
+    public function getDate() {
         return $this->Date;
     }
 
-    public function getDescription(){
+    public function getDescription() {
         return $this->Description;
     }
-
-
 }
-
-
 ?>

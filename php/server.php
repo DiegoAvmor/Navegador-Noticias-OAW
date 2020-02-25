@@ -19,7 +19,6 @@ switch ($action) {
         break;
 }
 
-
 function _getRSSFrom($url,$feed){
 
     $feed->set_feed_url($url);
@@ -35,8 +34,8 @@ function _getRSSFrom($url,$feed){
         $link = $item->get_link();
         $author = ($item->get_author()->get_name()!==null)?$item->get_author()->get_name():"No Author found";
         $date = $item->get_date('Y-m-d');
-        $descript = $item->get_description();
-        $newsObject = new News($title,$link,$author,$date,$descript);
+        $description = $item->get_description();
+        $newsObject = new News($title,$link,$author,$date,$description);
         array_push($list,$newsObject->_getJSON());
     }
     echo json_encode($list);
@@ -52,6 +51,4 @@ function getURL(){
 function setURL($url){
     file_put_contents("../resources/savedURL.txt",$url);
 }
-
-
 ?>
