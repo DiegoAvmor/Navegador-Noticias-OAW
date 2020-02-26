@@ -23,7 +23,7 @@ $database = establishConnectionDB();
 $database->insert(
     "news_table",
     [
-        'title'=> "some Tittle",
+        'title'=> "some title",
         'url'=> "some url",
         'author'=> "some author",
         'date'=> "2020-02-21",
