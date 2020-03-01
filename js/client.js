@@ -43,7 +43,7 @@ $("#btn").click(function() {
   }
 });
 $("#matchBtn").click(function(){
- Let input = $("#matchInput");
+  let input = $("#matchInput");
  if (input.val()) {
   $.ajax({
 
