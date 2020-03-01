@@ -42,7 +42,22 @@ $("#btn").click(function() {
     input.val(""); //Se limpia la búsqueda
   }
 });
+$("#matchBtn").click(function(){
+ Let input = $("#matchInput");
+ if (input.val()) {
+  $.ajax({
 
+    type:"GET",
+    url:"../Navegador-Noticias-OAW/php/search.php",
+    data:{
+      word:$("#matchInput").val();
+    }
+  })
+  .done(sortAndShow);
+  .fail((xhr,status,error)=> console.log(error));
+  input.val("");
+ }
+});
 const sortAndShow = response => {
   const parsedResponse = JSON.parse(response);
   let responseArray = new Array();
