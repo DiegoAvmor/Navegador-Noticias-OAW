@@ -43,6 +43,7 @@ $("#btn").click(function() {
   }
 });
 $("#matchBtn").click(function(){
+
   let input = $("#matchInput");
  if (input.val()) {
   $.ajax({
@@ -50,15 +51,16 @@ $("#matchBtn").click(function(){
     type:"GET",
     url:"../Navegador-Noticias-OAW/php/search.php",
     data:{
-      word:$("#matchInput").val();
+      word:$("#matchInput").val()
     }
   })
-  .done(sortAndShow);
+  .done(sortAndShow)
   .fail((xhr,status,error)=> console.log(error));
   input.val("");
  }
 });
 const sortAndShow = response => {
+  console.log(response);
   const parsedResponse = JSON.parse(response);
   let responseArray = new Array();
   parsedResponse.forEach(element => {
