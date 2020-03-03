@@ -18,6 +18,21 @@ function establishConnectionDB(){
     return $connection;
 }
 
+function establishConnectionsqli(){
+    $jsonStr = file_get_contents("../resources/dbconfig.json");
+    $config = json_decode($jsonStr);
+    $servername = $config->database->server;
+    $username = $config->database->username;
+    $password = $config->database->password;
+    $database= $config->database->dbname;
+
+    $conn= new mysqli($servername, $username, $password, $database);
+    return $conn;
+}
+
+
+
+
 //Example
 $database = establishConnectionDB();
 $database->insert(

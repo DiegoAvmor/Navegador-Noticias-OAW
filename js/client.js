@@ -17,7 +17,7 @@ $(document).ready(() => {
   $.ajax({
     type: "GET",
     // Cargar noticias de URL de archivo de configuración.
-    url: "http://localhost/Navegador-Noticias-OAW/php/load_from_file.php"
+    url: "../Navegador-Noticias-OAW/php/load_from_file.php"
   })
     .done(sortAndShow)
     .fail((xhr, status, error) => console.log(error));
@@ -30,7 +30,7 @@ $("#btn").click(function() {
     $.ajax({
       type: "GET",
       // Cargar noticias de URL de archivo de configuración.
-      url: "http://localhost/Navegador-Noticias-OAW/php/load_provided_url.php",
+      url: "../Navegador-Noticias-OAW/php/load_provided_url.php",
       // Provided RSS URL
       data: {
         url: $("#searchInput").val()
