@@ -24,7 +24,7 @@ $(document).ready(() => {
 });
 
 // Realiza la acción de buscar las noticias en el url introducido
-$("#btn").click(function() {
+$("#search").click(function() {
   let input = $("#searchInput");
   if (input.val()) {
     $.ajax({
@@ -33,7 +33,7 @@ $("#btn").click(function() {
       url: "../Navegador-Noticias-OAW/php/load_provided_url.php",
       // Provided RSS URL
       data: {
-        url: $("#searchInput").val()
+        url: input.val()
       }
     })
       .done(sortAndShow)
@@ -41,6 +41,25 @@ $("#btn").click(function() {
 
     input.val(""); //Se limpia la búsqueda
   }
+});
+
+$("#addFeed").click(function() {
+    let input = $("#searchInput");
+    if (input.val()) {
+        $.ajax({
+            type: "POST",
+            url: "../Navegador-Noticias-OAW/php/insert_news.php",
+            data: {
+                url: input.val()
+            }
+        })
+        .done(function (text) {
+            console.log(text);
+            //console.log("Feed " + text + " successfully addded");
+        })
+        .fail((xhr, status, error) => console.log(error));
+        input.val("");
+    }
 });
 
 const sortAndShow = response => {

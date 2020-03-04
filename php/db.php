@@ -18,21 +18,5 @@ function establishConnectionDB(){
     return $connection;
 }
 
-//Example
-$database = establishConnectionDB();
-$database->insert(
-    "news_table",
-    [
-        'title'=> "some title",
-        'url'=> "some url",
-        'author'=> "some author",
-        'date'=> "2020-02-21",
-        'description'=> "some description"
-    ]
-);
-
-
-
-
 
 ?>

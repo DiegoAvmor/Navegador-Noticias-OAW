@@ -12,16 +12,19 @@
 </head>
 <body>
     <div id="container">
-        <div class="text-center">
-            <div id="title">
-                <h1>NewsNavigator</h1>
-                <h5>Try it out!</h5>
+        <nav class="navbar navbar-inverse navbar-fixed-top ">
+            <div class="container-fluid ">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">NewsNavigator</a>
+                    <p class="navbar-text">Try it out!</p>
+                </div>
+                <div class="navbar-right">
+                    <input type="text" id="searchInput" placeholder="Insert a URL">
+                    <input type="button" value="Search" id="search" class="button">
+                    <input type="button" value="+ Feed" id="addFeed" class="button">
+                </div>                
             </div>
-            <div id="searchBox">
-                <input type="text" placeholder="Insert a URL" id="searchInput">
-                <input type="button" value="Search" id="btn">
-            </div>
-        </div>
+        </nav>
         <div id="rssContainer">
             <div class="list-group list-group-root well">
                 <!--Lista ordenada por año-->
