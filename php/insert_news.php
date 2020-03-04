@@ -39,9 +39,9 @@ foreach ($jsonArray as $jsonElement) {
         "news",
         [
             'title'=> $new->Title,
-            'link'=> $new->TitleURL,
+            'url'=> $new->TitleURL,
             'author'=> $new->Author,
-            'pub_date'=> $new->Date,
+            'publish_date'=> $new->Date,
             'description'=> $new->Description,
         ]
     );
