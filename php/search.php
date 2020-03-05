@@ -13,7 +13,7 @@ $result= $dbconnection->query($sql)->fetchAll();
 $array= array();
 
 foreach ($result as $row ) {
-	$newsObject = new News($row["title"],$row["link"],$row["author"],$row["pub_date"],$row["description"]);
+	$newsObject = new News($row["title"],$row["url"],$row["author"],$row["publish_date"],$row["description"]);
 		array_push($array,$newsObject->_getJSON());    
 }
 
