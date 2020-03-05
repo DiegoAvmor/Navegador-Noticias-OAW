@@ -24,7 +24,7 @@ $(document).ready(() => {
 });
 
 // Realiza la acción de buscar las noticias en el url introducido
-$("#btn").click(function() {
+$("#search").click(function() {
   let input = $("#searchInput");
   if (input.val()) {
     $.ajax({
@@ -33,7 +33,7 @@ $("#btn").click(function() {
       url: "../Navegador-Noticias-OAW/php/load_provided_url.php",
       // Provided RSS URL
       data: {
-        url: $("#searchInput").val()
+        url: input.val()
       }
     })
       .done(sortAndShow)
@@ -43,24 +43,42 @@ $("#btn").click(function() {
   }
 });
 $("#matchBtn").click(function(){
-
   let input = $("#matchInput");
- if (input.val()) {
-  $.ajax({
+  if (input.val()) {
+    $.ajax({
 
-    type:"GET",
-    url:"../Navegador-Noticias-OAW/php/search.php",
-    data:{
-      word:$("#matchInput").val()
-    }
-  })
-  .done(sortAndShow)
-  .fail((xhr,status,error)=> console.log(error));
-  input.val("");
- }
+      type:"GET",
+      url:"../Navegador-Noticias-OAW/php/search.php",
+      data:{
+        word:$("#matchInput").val()
+      }
+    })
+    .done(sortAndShow)
+    .fail((xhr,status,error)=> console.log(error));
+    input.val("");
+  }
 });
+
+$("#addFeed").click(function() {
+    let input = $("#searchInput");
+    if (input.val()) {
+        $.ajax({
+            type: "POST",
+            url: "../Navegador-Noticias-OAW/php/insert_news.php",
+            data: {
+                url: input.val()
+            }
+        })
+        .done(function (text) {
+            console.log(text);
+            //console.log("Feed " + text + " successfully addded");
+        })
+        .fail((xhr, status, error) => console.log(error));
+        input.val("");
+    }
+});
+
 const sortAndShow = response => {
-  console.log(response);
   const parsedResponse = JSON.parse(response);
   let responseArray = new Array();
   parsedResponse.forEach(element => {

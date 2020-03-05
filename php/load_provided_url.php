@@ -6,5 +6,6 @@ $feed->set_cache_location('../cache');
 
 $url = $_GET['url'];
 setURL($url);
-_getRSSFrom($url, $feed);
+$response = _getRSSFrom($url, $feed);
+echo $response;
 ?>

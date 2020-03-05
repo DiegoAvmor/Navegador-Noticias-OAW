@@ -5,5 +5,6 @@ $feed = new SimplePie();
 $feed->set_cache_location('../cache');
 
 $url = getURL();
-_getRSSFrom($url, $feed);
+$response = _getRSSFrom($url, $feed);
+echo $response;
 ?>

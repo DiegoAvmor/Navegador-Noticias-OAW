@@ -20,7 +20,7 @@ function _getRSSFrom($url,$feed){
         $newsObject = new News($title,$link,$author,$date,$description);
         array_push($list,$newsObject->_getJSON());
     }
-    echo json_encode($list);
+    return json_encode($list);
 }
 
 function getURL(){

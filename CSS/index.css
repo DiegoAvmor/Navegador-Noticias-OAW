@@ -1,3 +1,9 @@
+body { padding-top: 70px; }
+
+.navbar-right {
+  padding:10px 10px;
+}
+
 #rssContainer {
   margin-top: 20px;
   padding: 0px;
@@ -10,7 +16,8 @@ input[type="text"] {
   border: none;
   border-bottom: gray 0.5px solid;
 }
-.butt {
+
+.button {
   background-color: #2dabf9;
   border: none;
   border-radius: 20px;
@@ -22,12 +29,18 @@ input[type="text"] {
   text-decoration: none;
 }
 
-#btn:hover {
+.button:hover {
   background-color: #0688fa;
 }
-#btn:active {
+
+.button:active {
   position: relative;
   top: 1px;
+}
+
+input[type="text"] {
+  width: 250px;
+  height: 30px;
 }
 
 /*Styles for lists*/
