@@ -1,1 +1,1 @@
-https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/world/rss.xml
+   https://www.nytimes.com/svc/collections/v1/publish/https://www.nytimes.com/section/world/rss.xml

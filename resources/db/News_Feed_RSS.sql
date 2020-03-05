@@ -8,5 +8,6 @@ CREATE TABLE news (
   url varchar(100) NOT NULL,
   description text NOT NULL,
   author varchar(40) DEFAULT NULL,
-  publish_date varchar(50) DEFAULT NULL
+  publish_date varchar(50) DEFAULT NULL,
+  FULLTEXT(description)
 );

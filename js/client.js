@@ -42,6 +42,22 @@ $("#search").click(function() {
     input.val(""); //Se limpia la búsqueda
   }
 });
+$("#matchBtn").click(function(){
+  let input = $("#matchInput");
+  if (input.val()) {
+    $.ajax({
+
+      type:"GET",
+      url:"../Navegador-Noticias-OAW/php/search.php",
+      data:{
+        word:$("#matchInput").val()
+      }
+    })
+    .done(sortAndShow)
+    .fail((xhr,status,error)=> console.log(error));
+    input.val("");
+  }
+});
 
 $("#addFeed").click(function() {
     let input = $("#searchInput");
