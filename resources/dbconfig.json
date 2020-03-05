@@ -3,7 +3,7 @@
         "type" : "mysql",
         "server" : "localhost",
         "username" : "diego",
-        "password": "root",
+        "password": "admin123",
         "dbname":"newsdatabase"
     }
 }
