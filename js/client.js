@@ -13,7 +13,7 @@ const MONTHS = [
   { name: "December" }
 ];
 
-$(document).ready(() => {
+/*$(document).ready(() => {
   $.ajax({
     type: "GET",
     // Cargar noticias de URL de archivo de configuración.
@@ -21,7 +21,7 @@ $(document).ready(() => {
   })
     .done(sortAndShow)
     .fail((xhr, status, error) => console.log(error));
-});
+});*/
 
 // Realiza la acción de buscar las noticias en el url introducido
 $("#search").click(function() {
@@ -30,7 +30,7 @@ $("#search").click(function() {
     $.ajax({
       type: "GET",
       // Cargar noticias de URL de archivo de configuración.
-      url: "../Navegador-Noticias-OAW/php/load_provided_url.php",
+      url: "../Navegador-Noticias-OAW/php/scrap_provided_url.php",
       // Provided RSS URL
       data: {
         url: input.val()
@@ -79,13 +79,14 @@ $("#addFeed").click(function() {
 });
 
 const sortAndShow = response => {
-  const parsedResponse = JSON.parse(response);
+  console.log(response);
+  /*const parsedResponse = JSON.parse(response);
   let responseArray = new Array();
   parsedResponse.forEach(element => {
     const elementParsed = JSON.parse(element);
     responseArray.push(elementParsed);
   });
-  sortByDate(responseArray);
+  sortByDate(responseArray);*/
 };
 
 //Realiza el colapso de las sublistas
