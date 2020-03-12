@@ -59,25 +59,6 @@ $("#matchBtn").click(function(){
   }
 });
 
-$("#addFeed").click(function() {
-    let input = $("#searchInput");
-    if (input.val()) {
-        $.ajax({
-            type: "POST",
-            url: "../Navegador-Noticias-OAW/php/insert_news.php",
-            data: {
-                url: input.val()
-            }
-        })
-        .done(function (text) {
-            console.log(text);
-            //console.log("Feed " + text + " successfully addded");
-        })
-        .fail((xhr, status, error) => console.log(error));
-        input.val("");
-    }
-});
-
 const sortAndShow = response => {
   console.log(response);
   /*const parsedResponse = JSON.parse(response);
