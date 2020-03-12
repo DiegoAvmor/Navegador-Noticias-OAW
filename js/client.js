@@ -24,8 +24,8 @@ const MONTHS = [
 });*/
 
 // Realiza la acción de buscar las noticias en el url introducido
-$("#search").click(function() {
-  let input = $("#searchInput");
+$("#register-button").click(function() {
+  let input = $("#register-input");
   if (input.val()) {
     $.ajax({
       type: "GET",
@@ -61,13 +61,13 @@ $("#matchBtn").click(function(){
 
 const sortAndShow = response => {
   console.log(response);
-  /*const parsedResponse = JSON.parse(response);
+  const parsedResponse = JSON.parse(response);
   let responseArray = new Array();
   parsedResponse.forEach(element => {
     const elementParsed = JSON.parse(element);
     responseArray.push(elementParsed);
   });
-  sortByDate(responseArray);*/
+  sortByDate(responseArray);
 };
 
 //Realiza el colapso de las sublistas
@@ -89,23 +89,23 @@ $(function() {
 function setInformation(feed, domList, action) {
   domList.empty(); // Eliminación de la búsqueda anterior
   feed.forEach(element => {
-    let dateSelection = dateToCompare(action, element.Date);
+    let dateSelection = dateToCompare(action, element.lastModified);
 
     let feedContent = document.createElement("div");
     feedContent.setAttribute("class", "list-group-item");
 
     let title = document.createElement("a"); // Creación del encabezado
-    title.innerHTML = element.Title + " Date: " + element.Date;
-    title.setAttribute("href", element.TitleURL); // Se adiciona el url de la noticia al encabezado
+    title.innerHTML = element.title + " Date: " + element.lastModified;
+    title.setAttribute("href", element.url); // Se adiciona el url de la noticia al encabezado
     feedContent.appendChild(title);
 
     let descriptionContent = document.createElement("div"); // Creación del cuerpo de la noticia
     let author = document.createElement("p");
     author.setAttribute("class", "text-justify");
-    author.innerHTML = element.Author;
+    author.innerHTML = element.keywords;
     let description = document.createElement("p");
     description.setAttribute("class", "text-justify");
-    description.innerHTML = element.Description;
+    description.innerHTML = element.raw;
 
     descriptionContent.appendChild(author);
     descriptionContent.appendChild(description);
@@ -159,7 +159,7 @@ function createNewList(listName, list) {
 function sortByDate(array) {
   var domList;
   let orderedArray = array.slice().sort(function(a, b) {
-    return new Date(a.Date) - new Date(b.Date);
+    return new Date(a.lastModified) - new Date(b.lastModified);
   });
   domList = $("div#order-year");
   setInformation(orderedArray, domList, "Year");

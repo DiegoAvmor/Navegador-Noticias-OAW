@@ -1,49 +1,49 @@
 <?php
-class News {
-    private $Title;
-    private $TitleURL;
-    private $Author;
-    private $Date;
-    private $Description;
+class Website {
+    private $title;
+    private $url;
+    private $raw;
+    private $last_modified;
+    private $keywords;
 
-    function __construct($Title, $TitleURL, $Author, $Date, $Description) {
-        $this->Title = $Title;
-        $this->TitleURL = $TitleURL;
-        $this->Author = $Author;
-        $this->Date = $Date;
-        $this->Description = $Description;
+    function __construct($title, $url, $raw, $last_modified, $keywords) {
+        $this->title = $title;
+        $this->url = $url;
+        $this->raw = $raw;
+        $this->last_modified = $last_modified;
+        $this->keywords = $keywords;
     }
 
     function _getJSON() {
         return json_encode(
             array(
-            'Title'=> $this->getTitle(),
-            'TitleURL'=> $this->getTitleURL(),
-            'Author'=> $this->getAuthor(),
-            'Date'=> $this->getDate(),
-            'Description'=>  $this->getDescription()
+            'title'=> $this->get_title(),
+            'url'=> $this->get_url(),
+            'raw'=> $this->get_raw(),
+            'lastModified'=> $this->get_last_modified(),
+            'keywords'=>  $this->get_keywords()
             )
         );
     }
 
-    public function getTitle() {
-        return $this->Title;
+    public function get_title() {
+        return $this->title;
     }
 
-    public function getTitleURL() {
-        return $this->TitleURL;
+    public function get_url() {
+        return $this->url;
     }
 
-    public function getAuthor() {
-        return $this->Author;
+    public function get_raw() {
+        return $this->raw;
     }
 
-    public function getDate() {
-        return $this->Date;
+    public function get_last_modified() {
+        return $this->last_modified;
     }
 
-    public function getDescription() {
-        return $this->Description;
+    public function get_keywords() {
+        return $this->keywords;
     }
 }
 ?>

@@ -2,8 +2,8 @@
     "database" : {
         "type" : "mysql",
         "server" : "localhost",
-        "username" : "diego",
-        "password": "admin123",
-        "dbname":"newsdatabase"
+        "username" : "root",
+        "password": "",
+        "dbname":"news_feed_rss"
     }
 }
