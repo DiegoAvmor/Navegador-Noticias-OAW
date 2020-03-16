@@ -1,10 +1,10 @@
 <?php
 
 require 'Website.php';
-include_once 'db.php';
+include_once 'db_connection.php';
 
 // Create connection
-$dbconnection= establishConnectionDB();
+$dbconnection= establish_db_connection();
 
 $search=$_GET['word'];
 $sql= " SELECT * FROM `website` WHERE MATCH (description, title, body) AGAINST ('".$search."')";

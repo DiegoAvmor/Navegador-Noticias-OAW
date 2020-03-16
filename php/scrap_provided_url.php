@@ -1,5 +1,5 @@
 <?php
-include_once 'db.php';
+include_once 'db_connection.php';
 
 
 $url = $_GET['url'];
@@ -50,7 +50,7 @@ function geTitleFromHTML($html){
 
 function insertToDB($url, $title, $body, $description, $last_modified){
     //Se establece la conexion con la base de datos
-    $dbconnection= establishConnectionDB();
+    $dbconnection= establish_db_connection();
     //Si existe en la base de datos, se actualiza sus datos
     if($dbconnection->has("website",['title' =>$title])){
         //Se obtiene la ultima fecha modificada del sitio en la base de datos
