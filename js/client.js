@@ -102,10 +102,10 @@ function setInformation(feed, domList, action) {
     let descriptionContent = document.createElement("div"); // Creación del cuerpo de la noticia
     let author = document.createElement("p");
     author.setAttribute("class", "text-justify");
-    author.innerHTML = element.keywords;
+    author.innerHTML = element.description;
     let description = document.createElement("p");
     description.setAttribute("class", "text-justify");
-    description.innerHTML = element.raw;
+    description.innerHTML = element.body;
 
     descriptionContent.appendChild(author);
     descriptionContent.appendChild(description);

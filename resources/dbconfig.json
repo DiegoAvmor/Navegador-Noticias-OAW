@@ -4,6 +4,6 @@
         "server" : "localhost",
         "username" : "root",
         "password": "",
-        "dbname":"news_feed_rss"
+        "dbname":"web_archive"
     }
 }

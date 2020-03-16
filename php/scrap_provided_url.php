@@ -6,9 +6,6 @@ $url = $_GET['url'];
 scrapWebsite($url);
 
 function scrapWebsite($websiteUrl){
-    //Se obtiene las keywords
-    $meta = get_meta_tags($websiteUrl);
-    $keywords = $meta['keywords'];
 
     //Se establece las operaciones con curl para obtener el contenido del sitio web
     $curl = curl_init($websiteUrl);
@@ -29,7 +26,7 @@ function scrapWebsite($websiteUrl){
 
     //Se obtiene la ultima modificada(No muchos sitios te dan la ultima fecha en que fue modificada)
     $date = date("Y-m-d");
-    insertToDB($keywords,$rawWebPage,$htmlTitle,$websiteUrl,$date);
+    insertToDB($websiteUrl, $htmlTitle, $rawWebPage, '',$date);
 }
 
 function getRawFromHTML($html) {
@@ -51,21 +48,20 @@ function geTitleFromHTML($html){
     return ($list->length > 0)? $list->item(0)->textContent : 'No Title Found';
 }
 
-function insertToDB($keywords,$raw,$title,$url,$last_modified){
+function insertToDB($url, $title, $body, $description, $last_modified){
     //Se establece la conexion con la base de datos
     $dbconnection= establishConnectionDB();
     //Si existe en la base de datos, se actualiza sus datos
-    if($dbconnection->has("web_scrapping",['title' =>$title])){
+    if($dbconnection->has("website",['title' =>$title])){
         //Se obtiene la ultima fecha modificada del sitio en la base de datos
-        $webSite = $dbconnection->get("web_scrapping",['last_modified'],['title' =>$title]);
+        $webSite = $dbconnection->get("website",['last_modified'],['title' =>$title]);
         $db_date = $webSite['last_modified'];
         //Se actualiza los campos del registro si se identifica que fue modificado
         if($db_date < $last_modified){
             print_r("Se modifico el recurso, se actualiza");
-            $dbconnection->update("web_scrapping",
+            $dbconnection->update("website",
                 [
-                    'raw'=>$raw,
-                    'keywords'=>$keywords,
+                    'body'=>$body,
                     'last_modified'=>$last_modified
                 ],
                 [
@@ -77,12 +73,11 @@ function insertToDB($keywords,$raw,$title,$url,$last_modified){
     }else{
         //Se crea un registro en la base de datos
         $dbconnection->insert(
-            "web_scrapping",
+            "website",
             [
                 'title'=> $title,
                 'url'=> $url,
-                'raw'=> $raw,
-                'keywords'=> $keywords,
+                'body'=> $body,
                 'last_modified'=> $last_modified,
             ]
         );
