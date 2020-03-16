@@ -1,7 +1,7 @@
 <?php
 
 use Medoo\Medoo; // Specify namespace of class
-require '../lib/Medoo.php'; // Include file
+require_once '../lib/Medoo.php'; // Include file
 
 // Returns a Medoo instance, used for querying the specified database
 function establish_db_connection() {

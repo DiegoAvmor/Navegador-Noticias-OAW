@@ -6,9 +6,9 @@ CREATE TABLE website(
     url VARCHAR(250) UNIQUE NOT NULL,
     title VARCHAR(200) NOT NULL,
     description TEXT,
-    body TEXT NOT NULL,
-    last_modified DATETIME,
-    FULLTEXT(title, description, body)
+    html TEXT NOT NULL,
+    last_modified INTEGER,
+    FULLTEXT(title, description, html)
 );
 
 CREATE TABLE reference(

@@ -30,7 +30,7 @@ $("#register-button").click(function() {
     $.ajax({
       type: "GET",
       // Cargar noticias de URL de archivo de configuración.
-      url: "../Navegador-Noticias-OAW/php/scrap_provided_url.php",
+      url: "../Navegador-Noticias-OAW/php/register_website.php",
       // Provided RSS URL
       data: {
         url: input.val()
@@ -105,7 +105,7 @@ function setInformation(feed, domList, action) {
     author.innerHTML = element.description;
     let description = document.createElement("p");
     description.setAttribute("class", "text-justify");
-    description.innerHTML = element.body;
+    description.innerHTML = element.html;
 
     descriptionContent.appendChild(author);
     descriptionContent.appendChild(description);
