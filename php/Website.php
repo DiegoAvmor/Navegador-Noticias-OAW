@@ -52,7 +52,15 @@ class Website {
         );
     }
 
-    public function body() {
+    public function extract_links() {
+        $anchors = $this->dom_document->getElementsByTagName('a');
+        foreach($anchors as $anchor)
+            if(preg_match('/^https?:[\/]{2}/', $anchor->getAttribute('href')))  
+                $links[] = $anchor->getAttribute('href');
+        return $links;
+    }
+
+    public function extract_body() {
         return $this->dom_document->getElementsByTagName('body')[0]->nodeValue;
     }
 

@@ -8,22 +8,42 @@ $db_connection = establish_db_connection();
 
 switch(check_db_instance($url, $db_connection)) {
     case 'INEXISTENT':
-        insert_parent_website($url, $db_connection);
+        register_new_website($url, $db_connection);
     break;
     case 'OLD':
         update_content($url, $db_connection);
     break;
 }
 
-function insert_parent_website($url, $db_connection) {
+function register_new_website($url, $db_connection) {
     $website = new Website($url);
+    insert_website($website, $db_connection);
+
+    $links = $website->extract_links();
+    foreach($links as $link)
+        insert_referenced_website($website->get_url(), $link, $db_connection);
+}
+
+function insert_website($website, $db_connection) {
     $db_connection->insert('website', [
-        'url' => $url,
+        'url' => $website->get_url(),
         'title' => $website->get_title(),
-        'html' => $website->body(),
+        'html' => $website->extract_body(),
         'description' => $website->get_description(),
         'keywords' => $website->get_keywords(),
         'last_modified' => $website->timestamp()
+    ]);
+}
+
+function insert_referenced_website($url_parent, $url_child, $db_connection) {
+    insert_website(new Website($url_child), $db_connection);
+
+    $website_id_parent = $db_connection->select('website',['website_id'],['url' => $url_parent]);
+    $website_id_child = $db_connection->select('website',['website_id'],['url' => $url_child]);
+
+    $db_connection->insert('reference', [
+        'website_id_parent' => $website_id_parent,
+        'website_id_child' => $website_id_child
     ]);
 }
 
@@ -31,7 +51,7 @@ function update_content($url, $db_connection) {
     $website = new Website($url);
     $db_connection->update('website', [
         'title' => $website->get_title(),
-        'html' => $website->clean_html(),
+        'html' => $website->extract_body(),
         'description' => $website->get_description(),
         'last_modified' => $website->timestamp()
     ], ['url' => $url]);
