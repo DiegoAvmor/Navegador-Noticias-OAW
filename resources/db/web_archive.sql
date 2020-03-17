@@ -7,8 +7,9 @@ CREATE TABLE website(
     title VARCHAR(200) NOT NULL,
     description TEXT,
     html TEXT NOT NULL,
+    keywords VARCHAR(200),
     last_modified INTEGER,
-    FULLTEXT(title, description, html)
+    FULLTEXT(title, description, html, keywords)
 );
 
 CREATE TABLE reference(
