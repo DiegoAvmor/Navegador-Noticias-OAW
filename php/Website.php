@@ -13,9 +13,9 @@ class Website {
 
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        
+        $response = curl_exec($curl);
         $this->dom_document = new DomDocument;
-        @$this->dom_document->loadHTML($this->minimize(curl_exec($curl)));
+        @$this->dom_document->loadHTML($response);
 
         curl_close($curl);
 
@@ -80,7 +80,18 @@ class Website {
     }
 
     public function extract_body() {
-        return $this->dom_document->getElementsByTagName('body')[0]->nodeValue;
+
+        $elements = $this->dom_document->getElementsByTagName('script');
+
+        for ($i = $elements->length; --$i >= 0; ) {
+            $script = $elements->item($i);
+            $script->parentNode->removeChild($script);
+        }
+
+        $this->dom_document->saveHTML();
+        $html = $this->dom_document->getElementsByTagName('body')[0]->nodeValue;
+        
+        return $this->minimize($html);
     }
 
     private function minimize($html) {
