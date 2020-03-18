@@ -20,9 +20,10 @@ class Website {
         curl_close($curl);
 
         $this->headers = get_headers($url, 1);
-        $this->title = $this->dom_document->getElementsByTagName('title')[0]->nodeValue;
+        @$this->title = $this->dom_document->getElementsByTagName('title')[0]->nodeValue;
 
-        $meta_tags = get_meta_tags($this->url);
+        $meta_tags = $this->standardize_meta_tags(
+            $this->dom_document->getElementsByTagName('meta'));
 
         if(isset($meta_tags['description']))
             $this->description = $meta_tags['description'];
@@ -44,7 +45,7 @@ class Website {
             array(
             'url'=> $this->get_url(),
             'title'=> $this->get_title(),
-            'html'=> $this->body(),
+            'html'=> $this->extract_body(),
             'description'=>  $this->get_description(),
             'keywords' => $this->get_keywords(),
             'timestamp'=> $this->timestamp()
@@ -58,6 +59,24 @@ class Website {
             if(preg_match('/^https?:[\/]{2}/', $anchor->getAttribute('href')))  
                 $links[] = $anchor->getAttribute('href');
         return $links;
+    }
+
+    private function standardize_meta_tags($meta_tags) {
+        $std_meta_tags[] = array();
+
+        foreach($meta_tags as $meta_tag) {
+            $name = '';
+            if($meta_tag->getAttribute('name')) {
+                $name = $meta_tag->getAttribute('name');
+            } else if($meta_tag->getAttribute('property')) {
+                $name = $meta_tag->getAttribute('property');
+            }
+            
+            $content = $meta_tag->getAttribute('content');
+            $std_meta_tags[$name] = $content;
+        }
+
+        return $std_meta_tags;
     }
 
     public function extract_body() {
