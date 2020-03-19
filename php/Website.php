@@ -45,7 +45,7 @@ class Website {
             array(
             'url'=> $this->get_url(),
             'title'=> $this->get_title(),
-            'html'=> $this->extract_body(),
+            'body'=> $this->extract_body(),
             'description'=>  $this->get_description(),
             'keywords' => $this->get_keywords(),
             'timestamp'=> $this->timestamp()
@@ -105,10 +105,6 @@ class Website {
 
     public function get_title() {
         return $this->title;
-    }
-
-    public function get_raw_html() {
-        return $this->raw_html;
     }
 
     public function get_description() {

@@ -29,7 +29,7 @@ function insert_website($website, $db_connection) {
     $db_connection->insert('website', [
         'url' => $website->get_url(),
         'title' => $website->get_title(),
-        'html' => $website->extract_body(),
+        'body' => $website->extract_body(),
         'description' => $website->get_description(),
         'keywords' => $website->get_keywords(),
         'last_modified' => $website->timestamp()
@@ -43,8 +43,8 @@ function insert_referenced_website($url_parent, $url_child, $db_connection) {
     $website_id_child = $db_connection->select('website',['website_id'],['url' => $url_child]);
 
     $db_connection->insert('reference', [
-        'website_id_parent' => $website_id_parent,
-        'website_id_child' => $website_id_child
+        'website_id_parent' => $website_id_parent['website_id'],
+        'website_id_child' => $website_id_child['website_id']
     ]);
 }
 

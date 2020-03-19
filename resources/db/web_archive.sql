@@ -6,10 +6,10 @@ CREATE TABLE website(
     url VARCHAR(250) UNIQUE NOT NULL,
     title VARCHAR(200) NOT NULL,
     description TEXT,
-    html TEXT NOT NULL,
+    body TEXT NOT NULL,
     keywords VARCHAR(200),
     last_modified INTEGER,
-    FULLTEXT(title, description, html, keywords)
+    FULLTEXT(title, description, body, keywords)
 );
 
 CREATE TABLE reference(
