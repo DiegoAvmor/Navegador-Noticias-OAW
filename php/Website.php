@@ -55,6 +55,7 @@ class Website {
 
     public function extract_links() {
         $anchors = $this->dom_document->getElementsByTagName('a');
+        $links = array();
         foreach($anchors as $anchor)
             if(preg_match('/^https?:[\/]{2}/', $anchor->getAttribute('href')))  
                 $links[] = $anchor->getAttribute('href');
@@ -80,20 +81,17 @@ class Website {
     }
 
     public function extract_body() {
-
-        $elements = $this->dom_document->getElementsByTagName('script');
-
-        for ($i = $elements->length; --$i >= 0; ) {
-            $script = $elements->item($i);
-            $script->parentNode->removeChild($script);
-        }
-
-        $this->dom_document->saveHTML();
-        $html = $this->dom_document->getElementsByTagName('body')[0]->nodeValue;
-        
-        return $this->minimize($html);
+        $clean_body = $this->clean_body($this->dom_document->saveHTML(
+            $this->dom_document->getElementsByTagName('body')[0]));
+        return $clean_body;
     }
-
+    
+    private function clean_body($body) {
+        $body = preg_replace('/<script.*?>.*?<\/script>/s', '', $body);
+        $body = preg_replace('/<style.*?>.*?<\/style>/s', '', $body);
+        return strip_tags($body);
+    }
+    
     private function minimize($html) {
         // Remove new lines, tabs and more than two consecutive spaces
         return preg_replace('/[\n\r\t]|\s{2,}/s', '', $html);

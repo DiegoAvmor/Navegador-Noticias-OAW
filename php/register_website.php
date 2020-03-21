@@ -18,11 +18,10 @@ switch(check_db_instance($url, $db_connection)) {
 function register_new_website($url, $db_connection) {
     $website = new Website($url);
     insert_website($website, $db_connection);
-    /*
+    
     $links = $website->extract_links();
     foreach($links as $link)
         insert_referenced_website($website->get_url(), $link, $db_connection);
-    */
 }
 
 function insert_website($website, $db_connection) {
@@ -41,11 +40,12 @@ function insert_referenced_website($url_parent, $url_child, $db_connection) {
 
     $website_id_parent = $db_connection->select('website',['website_id'],['url' => $url_parent]);
     $website_id_child = $db_connection->select('website',['website_id'],['url' => $url_child]);
-
-    $db_connection->insert('reference', [
-        'website_id_parent' => $website_id_parent['website_id'],
-        'website_id_child' => $website_id_child['website_id']
-    ]);
+    
+    if(isset($website_id_parent[0]['website_id']) && isset($website_id_child[0]['website_id']))
+        $db_connection->insert('reference', [
+            'website_id_parent' => $website_id_parent[0]['website_id'],
+            'website_id_child' => $website_id_child[0]['website_id']
+        ]);
 }
 
 function update_content($url, $db_connection) {
