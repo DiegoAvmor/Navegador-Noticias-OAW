@@ -40,16 +40,20 @@ function insert_website($website, $db_connection) {
 }
 
 function insert_referenced_website($url_parent, $url_child, $db_connection) {
-    insert_website(new Website($url_child), $db_connection);
+    try{
+        insert_website(new Website($url_child), $db_connection);
 
-    $website_id_parent = $db_connection->select('website',['website_id'],['url' => $url_parent]);
-    $website_id_child = $db_connection->select('website',['website_id'],['url' => $url_child]);
-    
-    if(isset($website_id_parent[0]['website_id']) && isset($website_id_child[0]['website_id']))
-        $db_connection->insert('reference', [
-            'website_id_parent' => $website_id_parent[0]['website_id'],
-            'website_id_child' => $website_id_child[0]['website_id']
-        ]);
+        $website_id_parent = $db_connection->select('website',['website_id'],['url' => $url_parent]);
+        $website_id_child = $db_connection->select('website',['website_id'],['url' => $url_child]);
+        
+        if(isset($website_id_parent[0]['website_id']) && isset($website_id_child[0]['website_id']))
+            $db_connection->insert('reference', [
+                'website_id_parent' => $website_id_parent[0]['website_id'],
+                'website_id_child' => $website_id_child[0]['website_id']
+            ]);
+    }catch( Exception $e ) {
+        //Todo handle exception
+    }
 }
 
 // Update $url website in DB. Furthermore, if a child url is not registered
