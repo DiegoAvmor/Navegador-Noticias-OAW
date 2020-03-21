@@ -1,5 +1,8 @@
 <?php
 
+// The motivation behind this class is to have access to relevant website 
+// information, including url, title, description and keywords, through
+// an object which can be easily constructed via only the url of a website.
 class Website {
     private $url;
     private $title;
