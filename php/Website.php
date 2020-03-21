@@ -12,6 +12,13 @@ class Website {
     private $headers;
 
     public function __construct($url) {
+
+        $this->headers = get_headers($url, 1);
+
+        if($this->check_valid_website_url() === false){
+            throw new Exception('thou shalt not be born!');
+        }
+
         $this->url = $url;
 
         $curl = curl_init($url);
@@ -22,7 +29,6 @@ class Website {
 
         curl_close($curl);
 
-        $this->headers = get_headers($url, 1);
         @$this->title = $this->dom_document->getElementsByTagName('title')[0]->nodeValue;
 
         $meta_tags = $this->standardize_meta_tags(
@@ -92,14 +98,20 @@ class Website {
     private function clean_body($body) {
         $body = preg_replace('/<script.*?>.*?<\/script>/s', '', $body);
         $body = preg_replace('/<style.*?>.*?<\/style>/s', '', $body);
+        // Remove new lines, tabs and more than two consecutive spaces
+        $body = preg_replace('/[\n\r\t]|\s{2,}/s', '', $body);
         return strip_tags($body);
     }
     
-    private function minimize($html) {
-        // Remove new lines, tabs and more than two consecutive spaces
-        return preg_replace('/[\n\r\t]|\s{2,}/s', '', $html);
-    }
-    
+    private function check_valid_website_url() {
+		if(isset($this->headers[0]) && preg_match('/200 OK/', $this->headers[0]) &&
+						isset($this->headers['Content-Type']) && preg_match('/text\/html/',
+						$this->headers['Content-Type'])) {
+				return true;
+		}
+		return false;
+}
+
     public function get_url() {
         return $this->url;
     }
