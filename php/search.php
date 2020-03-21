@@ -7,14 +7,19 @@ include_once 'db_connection.php';
 $dbconnection= establish_db_connection();
 
 $search=$_GET['word'];
-$sql= " SELECT * FROM `website` WHERE MATCH (description, title, html) AGAINST ('".$search."')";
-
+$sql= "SELECT * FROM website WHERE MATCH ( title, description, body, keywords ) AGAINST " . "('". $search . "')";
 $result= $dbconnection->query($sql)->fetchAll();
 $array= array();
 
 foreach ($result as $row ) {
-	$newsObject = new Website($row["title"],$row["url"],$row["html"],$row["last_modified"],$row["description"]);
-		array_push($array,$newsObject->to_json());
+	$rowArray = array(
+		"title" => $row["title"],
+		"url" => $row["url"],
+		"description" => $row["description"],
+		"keywords" => isset($row["keywords"])?$row["keywords"]:"No keywords found",
+		"last_modified" => date("Y-m-d H:i:s", $row["last_modified"])
+	);
+	array_push($array,json_encode($rowArray));
 }
 
 echo json_encode($array);
