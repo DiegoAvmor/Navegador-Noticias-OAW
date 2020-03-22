@@ -60,19 +60,29 @@ function insert_referenced_website($url_parent, $url_child, $db_connection) {
 // in the DB, add it to `website` table and register it in `reference`; if 
 // it already exists and is OLD, only update its contents in `website`.
 function update_old_website($url, $db_connection) {
+    $id = $db_connection->select(
+        "website","website_id",["url"=>$url]
+    );
+    $references = $db_connection->select(
+        "reference",
+        ["[><]website"=>["website_id_child"=>"website_id"]],
+        ["website_id_parent", "website_id_child", "website_id", "url"],
+        ["website_id_parent" => $id[0]]
+    );
+    foreach ($references as $key) {
+        $result = $db_connection->delete(
+            "website",
+            ["AND" => ["website_id" => $key["website_id_child"]]]
+        );
+    }
+
     $website = new Website($url);
     update_website($website, $db_connection);
     
     $links = $website->extract_links();
     foreach($links as $link)
-        switch(check_db_instance($link, $db_connection)) {
-            case 'INEXISTENT':
-                insert_referenced_website($url, $link, $db_connection);
-            break;
-            case 'OLD':
-                update_website($link, $db_connection);
-            break;
-        }
+        insert_referenced_website($url, $link, $db_connection);
+
 }
 
 function update_website($website, $db_connection) {
