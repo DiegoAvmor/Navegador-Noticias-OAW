@@ -21,7 +21,7 @@ $("#register-button").click(function() {
     $.ajax({
       type: "GET",
       // Cargar noticias de URL de archivo de configuración.
-      url: "../Navegador-Noticias-OAW/php/register_website.php",
+      url: "../../Navegador-Noticias-OAW/src/register_website.php",
       // Provided RSS URL
       data: {
         url: input.val()
@@ -37,7 +37,7 @@ $("#matchBtn").click(function(){
     $.ajax({
 
       type:"GET",
-      url:"../Navegador-Noticias-OAW/php/search.php",
+      url:"../../Navegador-Noticias-OAW/src/search.php",
       data:{
         word:$("#matchInput").val()
       }
