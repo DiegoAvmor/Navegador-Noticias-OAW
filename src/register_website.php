@@ -80,7 +80,6 @@ function update_old_website($url, $db_connection) {
     $links = $website->extract_links();
     foreach($links as $link)
         insert_referenced_website($url, $link, $db_connection);
-
 }
 
 function update_website($website, $db_connection) {
