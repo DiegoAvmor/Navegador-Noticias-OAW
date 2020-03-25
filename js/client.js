@@ -13,31 +13,20 @@ const MONTHS = [
   { name: "December" }
 ];
 
-$(document).ready(() => {
-  $.ajax({
-    type: "GET",
-    // Cargar noticias de URL de archivo de configuración.
-    url: "../Navegador-Noticias-OAW/php/load_from_file.php"
-  })
-    .done(sortAndShow)
-    .fail((xhr, status, error) => console.log(error));
-});
 
 // Realiza la acción de buscar las noticias en el url introducido
-$("#search").click(function() {
-  let input = $("#searchInput");
+$("#register-button").click(function() {
+  let input = $("#register-input");
   if (input.val()) {
     $.ajax({
       type: "GET",
       // Cargar noticias de URL de archivo de configuración.
-      url: "../Navegador-Noticias-OAW/php/load_provided_url.php",
+      url: "../Navegador-Noticias-OAW/php/register_website.php",
       // Provided RSS URL
       data: {
         url: input.val()
       }
-    })
-      .done(sortAndShow)
-      .fail((xhr, status, error) => console.log(error));
+    }).fail((xhr, status, error) => console.log(error));
 
     input.val(""); //Se limpia la búsqueda
   }
@@ -59,26 +48,8 @@ $("#matchBtn").click(function(){
   }
 });
 
-$("#addFeed").click(function() {
-    let input = $("#searchInput");
-    if (input.val()) {
-        $.ajax({
-            type: "POST",
-            url: "../Navegador-Noticias-OAW/php/insert_news.php",
-            data: {
-                url: input.val()
-            }
-        })
-        .done(function (text) {
-            console.log(text);
-            //console.log("Feed " + text + " successfully addded");
-        })
-        .fail((xhr, status, error) => console.log(error));
-        input.val("");
-    }
-});
-
 const sortAndShow = response => {
+  console.log(response);
   const parsedResponse = JSON.parse(response);
   let responseArray = new Array();
   parsedResponse.forEach(element => {
@@ -107,26 +78,26 @@ $(function() {
 function setInformation(feed, domList, action) {
   domList.empty(); // Eliminación de la búsqueda anterior
   feed.forEach(element => {
-    let dateSelection = dateToCompare(action, element.Date);
+    let dateSelection = dateToCompare(action, element.last_modified);
 
     let feedContent = document.createElement("div");
     feedContent.setAttribute("class", "list-group-item");
 
     let title = document.createElement("a"); // Creación del encabezado
-    title.innerHTML = element.Title + " Date: " + element.Date;
-    title.setAttribute("href", element.TitleURL); // Se adiciona el url de la noticia al encabezado
+    title.innerHTML = element.title + " Date: " + element.last_modified;
+    title.setAttribute("href", element.url); // Se adiciona el url de la noticia al encabezado
     feedContent.appendChild(title);
 
     let descriptionContent = document.createElement("div"); // Creación del cuerpo de la noticia
-    let author = document.createElement("p");
-    author.setAttribute("class", "text-justify");
-    author.innerHTML = element.Author;
     let description = document.createElement("p");
     description.setAttribute("class", "text-justify");
-    description.innerHTML = element.Description;
+    description.innerHTML = element.description;
+    let keywords = document.createElement("p");
+    keywords.setAttribute("class", "text-justify");
+    keywords.textContent = "["+element.keywords +"]";
 
-    descriptionContent.appendChild(author);
     descriptionContent.appendChild(description);
+    descriptionContent.appendChild(keywords);
     feedContent.appendChild(descriptionContent);
 
     if (checkIfExists(dateSelection)) {
@@ -177,7 +148,7 @@ function createNewList(listName, list) {
 function sortByDate(array) {
   var domList;
   let orderedArray = array.slice().sort(function(a, b) {
-    return new Date(a.Date) - new Date(b.Date);
+    return new Date(a.last_modified) - new Date(b.last_modified);
   });
   domList = $("div#order-year");
   setInformation(orderedArray, domList, "Year");

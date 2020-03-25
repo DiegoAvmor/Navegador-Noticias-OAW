@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>News Navigator</title>
+    <title>Web scraper</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="js/client.js?id=7" defer></script>
+    <script src="js/client.js?id" defer></script>
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
@@ -19,16 +19,15 @@
                     <p class="navbar-text">Try it out!</p>
                 </div>
                 <div class="navbar-right">
-                    <input type="text" id="searchInput" placeholder="Insert a URL">
-                    <input type="button" value="Search" id="search" class="button">
-                    <input type="button" value="+ Feed" id="addFeed" class="button">
-                </div>                
+                    <input type="text" id="register-input" placeholder="Insert a URL">
+                    <input type="button" value="Register" id="register-button" class="button">
+                </div>
             </div>
         </div>
         </nav>
         <div id='matchBox'>
-            <input type="text" placeholder="Insert a searchword" id="matchInput">
-            <input type="button" value="Search For" id="matchBtn" class="button">
+            <input type="text" placeholder="Insert a word you want to lookup" id="matchInput">
+            <input type="button" value="Search" id="matchBtn" class="button">
         </div>
         <div id="rssContainer">
             <div class="list-group list-group-root well">
