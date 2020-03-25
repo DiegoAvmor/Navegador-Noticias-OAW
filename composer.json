@@ -1,0 +1,8 @@
+{
+    "require": {
+        "catfan/medoo": "^1.7"
+    },
+    "autoload": {
+        "files": ["src/db_connection.php", "src/Website.php"]
+    }
+}

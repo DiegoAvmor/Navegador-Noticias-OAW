@@ -1,7 +1,7 @@
 <?php
+require_once '../vendor/autoload.php';
 
 use Medoo\Medoo; // Specify namespace of class
-require_once '../lib/Medoo.php'; // Include file
 
 // Returns a Medoo instance, used for querying the specified database
 function establish_db_connection() {
@@ -14,5 +14,3 @@ function establish_db_connection() {
         'password' => $config['password'],
     ]);
 }
-
-?>

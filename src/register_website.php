@@ -1,7 +1,5 @@
 <?php
-
-require_once 'db_connection.php';
-require_once 'Website.php';
+require_once '../vendor/autoload.php';
 
 // Get provided url and establish DB connection
 $url = $_GET['url'];
@@ -132,5 +130,3 @@ function check_db_instance($url, $db_connection) {
         return 'INEXISTENT';
     }
 }
-
-?>
