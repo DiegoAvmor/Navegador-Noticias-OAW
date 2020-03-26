@@ -1,7 +1,5 @@
 <?php
-
-require 'Website.php';
-include_once 'db_connection.php';
+require_once '../vendor/autoload.php';
 
 // Create connection
 $dbconnection= establish_db_connection();
@@ -23,4 +21,3 @@ foreach ($result as $row ) {
 }
 
 echo json_encode($array);
-?>

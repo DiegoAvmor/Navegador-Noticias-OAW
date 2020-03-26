@@ -110,7 +110,7 @@ class Website {
 				return true;
 		}
 		return false;
-}
+    }
 
     public function get_url() {
         return $this->url;
@@ -128,5 +128,3 @@ class Website {
         return $this->keywords;
     }
 }
-
-?>

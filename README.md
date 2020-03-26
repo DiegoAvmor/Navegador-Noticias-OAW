@@ -1,7 +1,7 @@
 # Navegador-Noticias-OAW
 Proyecto para la materia de Optimización de Aplicaciones Web, el objetivo del proyecto es la realización de un sitio web que muestre en pantalla las noticias obtenidas mediante los rss y el ordenamiento de estos en base al año, mes y día.
 
-![News Navigation Example](https://github.com/DiegoAvmor/Navegador-Noticias-OAW/blob/master/resources/ResourceReadMe/example.gif)
+![News Navigation Example](resources/README/example.gif)
 
 # Tecnologías
 + **html**: Dara la estructura del sitio web de noticias.

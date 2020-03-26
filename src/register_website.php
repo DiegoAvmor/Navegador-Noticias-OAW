@@ -1,7 +1,5 @@
 <?php
-
-require_once 'db_connection.php';
-require_once 'Website.php';
+require_once '../vendor/autoload.php';
 
 // Get provided url and establish DB connection
 $url = $_GET['url'];
@@ -82,7 +80,6 @@ function update_old_website($url, $db_connection) {
     $links = $website->extract_links();
     foreach($links as $link)
         insert_referenced_website($url, $link, $db_connection);
-
 }
 
 function update_website($website, $db_connection) {
@@ -132,5 +129,3 @@ function check_db_instance($url, $db_connection) {
         return 'INEXISTENT';
     }
 }
-
-?>
